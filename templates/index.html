@@ -1,20 +1,22 @@
 <body>
-    <header>
-        <h1>AgroTech Monitor</h1>
-        <nav>
-            <ul>
-                <li><a href="#frota">Frota</a></li>
-                <li><a href="#manutencao">Manutenção</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header>
+    <h1>AgroTech Monitor</h1>
+    <nav>
+      <ul>
+        <li><a href="#frota">Frota</a></li>
+        <li><a href="#manutencao">Manutenção</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <main>
-        <section id="frota">
-            <h2>Monitoramento de Colhedoras</h2>
-            <p>Bem-vindo, Dieikon. Status atual: <strong>Sistema Ativo</strong></p>
-        </section>
-    </main>
+  <main>
+    <section id="frota">
+      <h2>Monitoramento de Colhedoras</h2>
+      <p>Máquina: <strong>{{ info.maquina }}</strong></p>
+      <p>Horas de Uso: <strong>{{ info.horas_uso }}h</strong></p>
+      <p>Status Atual: <strong>{{ info.status }}</strong></p>
+    </section>
+  </main>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
