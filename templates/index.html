@@ -14,7 +14,14 @@
       <h2>Monitoramento de Colhedoras</h2>
       <p>Máquina: <strong>{{ info.maquina }}</strong></p>
       <p>Horas de Uso: <strong>{{ info.horas_uso }}h</strong></p>
-      <p>Status Atual: <strong>{{ info.status }}</strong></p>
+      <p>
+        Status Atual:
+        <span
+          class="{% if info.status == 'Operacional' %}status-operacional{% else %}status-alerta{% endif %}"
+        >
+          {{ info.status }}
+        </span>
+      </p>
     </section>
   </main>
 

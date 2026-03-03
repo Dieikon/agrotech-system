@@ -1,0 +1,11 @@
+/* Estilo para status positivo */
+.status-operacional {
+    color: #2ecc71; /* Verde */
+    font-weight: bold;
+}
+
+/* Estilo para alerta de manutenção */
+.status-alerta {
+    color: #e74c3c; /* Vermelho */
+    font-weight: bold;
+}
