@@ -22,6 +22,30 @@
           {{ info.status }}
         </span>
       </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Equipamento</th>
+            <th>Horas de Uso</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in maquinas %}
+          <tr>
+            <td>{{ m.modelo }}</td>
+            <td>{{ m.horas }}h</td>
+            <td>
+              <span
+                class="{% if m.status == 'Operacional' %}status-operacional{% else %}status-alerta{% endif %}"
+              >
+                {{ m.status }}
+              </span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </section>
   </main>
 
