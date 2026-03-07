@@ -1,6 +1,30 @@
+import sqlite3
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
+
+# Função para conectar ao banco
+def conectar_banco():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row # Permite acessar colunas pelo nome
+    return conn
+
+# Criar a tabela se ela não existir
+def iniciar_banco():
+    conn = conectar_banco()
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS frota (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            modelo TEXT NOT NULL,
+            numero_frota TEXT NOT NULL,
+            horas INTEGER NOT NULL,
+            status TEXT NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+iniciar_banco()
 
 # Criamos a lista fora da função para que ela não resete toda vez
 frota = [
@@ -11,47 +35,63 @@ frota = [
 
 @app.route('/')
 def home():
+    conn = conectar_banco()
+    # Busca todas as máquinas do banco de dados
+    frota = conn.execute('SELECT * FROM frota').fetchall()
+    conn.close()
     return render_template('index.html', maquinas=frota)
 
 # Rota para Cadastrar
 @app.route('/cadastrar', methods=['POST'])
 def cadastrar():
     modelo = request.form.get('modelo')
-    numero_frota = request.form.get('numero_frota') # Novo campo
+    numero_frota = request.form.get('numero_frota')
     horas = int(request.form.get('horas'))
-    
     status = "Manutenção Requerida" if horas >= 600 else "Operacional"
     
-    # Adicionando o novo campo no dicionário
-    frota.append({
-        "modelo": modelo, 
-        "numero_frota": numero_frota, 
-        "horas": horas, 
-        "status": status
-    })
-    
+    conn = conectar_banco()
+    conn.execute('INSERT INTO frota (modelo, numero_frota, horas, status) VALUES (?, ?, ?, ?)',
+                 (modelo, numero_frota, horas, status))
+    conn.commit()
+    conn.close()
     return redirect(url_for('home'))
 
 # Rota para Excluir
-@app.route('/excluir/<int:indice>')
-def excluir(indice):
-    if 0 <= indice < len(frota):
-        frota.pop(indice) # Remove a máquina da lista pelo número da linha
+@app.route('/excluir/<int:id>')
+def excluir(id):
+    conn = conectar_banco()
+    conn.execute('DELETE FROM frota WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
     return redirect(url_for('home'))
 
 # Rota para Editar (Prepara os dados para o formulário)
-@app.route('/editar/<int:indice>', methods=['GET', 'POST'])
-def editar(indice):
+@app.route('/editar/<int:id>', methods=['GET', 'POST'])
+def editar(id):
+    conn = conectar_banco()
+    
     if request.method == 'POST':
-        frota[indice]['modelo'] = request.form.get('modelo')
-        frota[indice]['numero_frota'] = request.form.get('numero_frota') # Atualizando o número
-        frota[indice]['horas'] = int(request.form.get('horas'))
+        modelo = request.form.get('modelo')
+        numero_frota = request.form.get('numero_frota')
+        horas = int(request.form.get('horas'))
+        status = "Manutenção Requerida" if horas >= 600 else "Operacional"
         
-        frota[indice]['status'] = "Manutenção Requerida" if frota[indice]['horas'] >= 600 else "Operacional"
+        # O banco tenta escrever aqui. Ele precisa estar "destravado"
+        conn.execute('''
+            UPDATE frota 
+            SET modelo = ?, numero_frota = ?, horas = ?, status = ? 
+            WHERE id = ?
+        ''', (modelo, numero_frota, horas, status, id))
+        
+        conn.commit()
+        conn.close()  # FECHA AQUI APÓS SALVAR
         return redirect(url_for('home'))
     
-    maquina = frota[indice]
-    return render_template('editar.html', maquina=maquina, indice=indice)
+    # Se for apenas carregar a página (GET)
+    maquina = conn.execute('SELECT * FROM frota WHERE id = ?', (id,)).fetchone()
+    conn.close() # FECHA AQUI APÓS LER
+    return render_template('editar.html', maquina=maquina, id=id)
+
 
 @app.route('/relatorio')
 def relatorio():

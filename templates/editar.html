@@ -6,7 +6,7 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
     />
-    <title>Editar Máquina</title>
+    <title>Editar Máquina - AgroTech</title>
   </head>
   <body
     style="
@@ -14,37 +14,93 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      background-color: #f4f7f6;
     "
   >
-    <div class="form-container" style="width: 400px">
-      <h2>Editar {{ maquina.modelo }}</h2>
-      <form action="/editar/{{ indice }}" method="POST">
-        <label>Modelo:</label>
-        <input
-          type="text"
-          name="modelo"
-          value="{{ maquina.modelo }}"
-          required
-          style="width: 90%; margin-bottom: 10px"
-        />
-        <label>Horas:</label>
-        <input
-          type="number"
-          name="horas"
-          value="{{ maquina.horas }}"
-          required
-          style="width: 90%; margin-bottom: 20px"
-        />
-        <button type="submit" class="btn-cadastrar">Salvar Alterações</button>
+    <div
+      class="form-container"
+      style="width: 100%; max-width: 400px; padding: 30px"
+    >
+      <h2 style="color: #367c2b; text-align: center; margin-bottom: 20px">
+        Editar Equipamento
+      </h2>
+
+      <form
+        action="{{ url_for('editar', id=id) }}"
+        method="POST"
+        style="display: flex; flex-direction: column; gap: 15px"
+      >
+        <div>
+          <label style="display: block; font-weight: bold; margin-bottom: 5px"
+            >Modelo:</label
+          >
+          <input
+            type="text"
+            name="modelo"
+            value="{{ maquina.modelo }}"
+            required
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 4px;
+              border: 1px solid #ddd;
+            "
+          />
+        </div>
+
+        <div>
+          <label style="display: block; font-weight: bold; margin-bottom: 5px"
+            >Nº da Frota:</label
+          >
+          <input
+            type="text"
+            name="numero_frota"
+            value="{{ maquina.numero_frota }}"
+            required
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 4px;
+              border: 1px solid #ddd;
+            "
+          />
+        </div>
+
+        <div>
+          <label style="display: block; font-weight: bold; margin-bottom: 5px"
+            >Horas de Uso:</label
+          >
+          <input
+            type="number"
+            name="horas"
+            value="{{ maquina.horas }}"
+            required
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 4px;
+              border: 1px solid #ddd;
+            "
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="btn-cadastrar"
+          style="width: 100%; margin-top: 10px"
+        >
+          Salvar Alterações
+        </button>
+
         <a
-          href="/"
+          href="{{ url_for('home') }}"
           style="
-            display: block;
             text-align: center;
-            margin-top: 10px;
             color: #666;
+            text-decoration: none;
+            font-size: 14px;
           "
-          >Cancelar</a
+          >Cancelar e Voltar</a
         >
       </form>
     </div>
