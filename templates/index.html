@@ -1,53 +1,57 @@
-<body>
-  <header>
-    <h1>AgroTech Monitor</h1>
-    <nav>
-      <ul>
-        <li><a href="#frota">Frota</a></li>
-        <li><a href="#manutencao">Manutenção</a></li>
-      </ul>
-    </nav>
-  </header>
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgroTech Monitor - Gestão de Frota</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>AgroTech Monitor</h1>
+      <nav>
+        <ul>
+          <li><a href="#frota">Painel de Frota</a></li>
+          <li><a href="#manutencao">Relatórios</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <main>
-    <section id="frota">
-      <h2>Monitoramento de Colhedoras</h2>
-      <p>Máquina: <strong>{{ info.maquina }}</strong></p>
-      <p>Horas de Uso: <strong>{{ info.horas_uso }}h</strong></p>
-      <p>
-        Status Atual:
-        <span
-          class="{% if info.status == 'Operacional' %}status-operacional{% else %}status-alerta{% endif %}"
-        >
-          {{ info.status }}
-        </span>
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th>Equipamento</th>
-            <th>Horas de Uso</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for m in maquinas %}
-          <tr>
-            <td>{{ m.modelo }}</td>
-            <td>{{ m.horas }}h</td>
-            <td>
-              <span
-                class="{% if m.status == 'Operacional' %}status-operacional{% else %}status-alerta{% endif %}"
-              >
-                {{ m.status }}
-              </span>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </section>
-  </main>
+    <main>
+      <section id="frota">
+        <h2>Monitoramento de Colhedoras e Tratores</h2>
+        <p>Status do Sistema: <strong>Conectado às Máquinas</strong></p>
 
-  <script src="script.js"></script>
-</body>
+        <table>
+          <thead>
+            <tr>
+              <th>Equipamento</th>
+              <th>Horas de Uso</th>
+              <th>Status de Manutenção</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for m in maquinas %}
+            <tr>
+              <td>{{ m.modelo }}</td>
+              <td>{{ m.horas }}h</td>
+              <td>
+                <span
+                  class="{% if m.status == 'Operacional' %}status-operacional{% else %}status-alerta{% endif %}"
+                >
+                  {{ m.status }}
+                </span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>

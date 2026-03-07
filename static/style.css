@@ -1,11 +1,63 @@
-/* Estilo para status positivo */
-.status-operacional {
-    color: #2ecc71; /* Verde */
-    font-weight: bold;
+/* Configurações Gerais */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 20px;
 }
 
-/* Estilo para alerta de manutenção */
+header {
+    background-color: #367c2b; /* Verde John Deere */
+    color: #ffde00; /* Amarelo John Deere */
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 20px;
+}
+
+/* Estilização da Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background-color: #367c2b;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Lógica de Cores para Status */
+.status-operacional {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
 .status-alerta {
-    color: #e74c3c; /* Vermelho */
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
     font-weight: bold;
 }
