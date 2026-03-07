@@ -4,28 +4,33 @@ app = Flask(__name__)
 
 # Criamos a lista fora da função para que ela não resete toda vez
 frota = [
-    {"modelo": "Colhedora CH570", "horas": 480, "status": "Operacional"},
-    {"modelo": "Trator 8R", "horas": 610, "status": "Manutenção Requerida"},
-    {"modelo": "Pulverizador M4040", "horas": 150, "status": "Operacional"}
+    {"modelo": "Colhedora CH570", "numero_frota": "40024", "horas": 600, "status": "Manutenção Requerida"},
+    {"modelo": "Trator 8R", "numero_frota": "30015", "horas": 480, "status": "Operacional"},
+    {"modelo": "Pulverizador M4040", "numero_frota": "20088", "horas": 150, "status": "Operacional"}
 ]
 
 @app.route('/')
 def home():
     return render_template('index.html', maquinas=frota)
 
+# Rota para Cadastrar
 @app.route('/cadastrar', methods=['POST'])
 def cadastrar():
     modelo = request.form.get('modelo')
+    numero_frota = request.form.get('numero_frota') # Novo campo
     horas = int(request.form.get('horas'))
     
-    # Lógica Automática de Status
     status = "Manutenção Requerida" if horas >= 600 else "Operacional"
     
-    # Adiciona na nossa lista "em memória"
-    frota.append({"modelo": modelo, "horas": horas, "status": status})
+    # Adicionando o novo campo no dicionário
+    frota.append({
+        "modelo": modelo, 
+        "numero_frota": numero_frota, 
+        "horas": horas, 
+        "status": status
+    })
     
     return redirect(url_for('home'))
-
 
 # Rota para Excluir
 @app.route('/excluir/<int:indice>')
@@ -39,12 +44,12 @@ def excluir(indice):
 def editar(indice):
     if request.method == 'POST':
         frota[indice]['modelo'] = request.form.get('modelo')
+        frota[indice]['numero_frota'] = request.form.get('numero_frota') # Atualizando o número
         frota[indice]['horas'] = int(request.form.get('horas'))
-        # Recalcula o status automaticamente
+        
         frota[indice]['status'] = "Manutenção Requerida" if frota[indice]['horas'] >= 600 else "Operacional"
         return redirect(url_for('home'))
     
-    # Se for GET, enviamos os dados da máquina atual para uma página de edição
     maquina = frota[indice]
     return render_template('editar.html', maquina=maquina, indice=indice)
 

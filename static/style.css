@@ -1,3 +1,17 @@
+/* Isso garante que padding e bordas não aumentem o tamanho total dos elementos */
+* {
+    box-sizing: border-box;
+}
+
+#filtroInput {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #367c2b;
+    margin-bottom: 20px;
+    outline: none; /* Remove aquela borda azul padrão ao clicar */
+}
+
 /* Configurações Gerais */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

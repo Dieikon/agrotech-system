@@ -22,8 +22,23 @@
 
     <main>
       <section id="frota">
-        <h2>Monitoramento de Colhedoras e Tratores</h2>
-        <p>Status do Sistema: <strong>Conectado às Máquinas</strong></p>
+        <h2>Monitoramento de Frota John Deere</h2>
+
+        <div style="margin-bottom: 20px">
+          <input
+            type="text"
+            id="filtroInput"
+            onkeyup="filtrarTabela()"
+            placeholder="🔍 Digite o modelo ou Nº da frota para buscar..."
+            style="
+              width: 100%;
+              padding: 12px;
+              border-radius: 8px;
+              border: 1px solid #367c2b;
+              box-sizing: border-box; /* ISSO IMPEDE O INPUT DE ULTRAPASSAR */
+            "
+          />
+        </div>
         <div class="form-container">
           <h3>Cadastrar Nova Máquina</h3>
           <form action="/cadastrar" method="POST">
@@ -31,6 +46,12 @@
               type="text"
               name="modelo"
               placeholder="Modelo (ex: S700)"
+              required
+            />
+            <input
+              type="text"
+              name="numero_frota"
+              placeholder="Nº da Frota (ex: 40024)"
               required
             />
             <input
@@ -44,12 +65,12 @@
             </button>
           </form>
         </div>
-        <hr />
 
-        <table>
+        <table id="tabelaMaquinas">
           <thead>
             <tr>
               <th>Equipamento</th>
+              <th>Nº da Frota</th>
               <th>Horas</th>
               <th>Status</th>
               <th>Ações</th>
@@ -59,6 +80,7 @@
             {% for m in maquinas %}
             <tr>
               <td>{{ m.modelo }}</td>
+              <td>{{ m.numero_frota }}</td>
               <td>{{ m.horas }}h</td>
               <td>
                 <span
