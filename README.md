@@ -8,7 +8,7 @@ Sistema de monitoramento e Business Intelligence (BI) para frotas agrícolas, fo
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Python 3.9** (Backend)
+- **Python 3.11** (Backend)
 - **Flask** (Framework Web)
 - **SQLite** (Banco de Dados Relacional - Persistência Offline)
 - **JavaScript** (Filtros de busca em tempo real)
