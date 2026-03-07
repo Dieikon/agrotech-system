@@ -61,3 +61,54 @@ tr:hover {
     font-size: 12px;
     font-weight: bold;
 }
+
+.form-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-container input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn-cadastrar {
+    background-color: #367c2b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-cadastrar:hover {
+    background-color: #2d6624;
+}
+
+.btn-editar {
+    background-color: #ffde00; /* Amarelo John Deere */
+    color: #333;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.btn-excluir {
+    background-color: #e74c3c; /* Vermelho Alerta */
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.btn-excluir:hover { background-color: #c0392b; }
+.btn-editar:hover { background-color: #e5c700; }

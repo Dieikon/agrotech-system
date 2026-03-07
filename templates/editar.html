@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <title>Editar Máquina</title>
+  </head>
+  <body
+    style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    "
+  >
+    <div class="form-container" style="width: 400px">
+      <h2>Editar {{ maquina.modelo }}</h2>
+      <form action="/editar/{{ indice }}" method="POST">
+        <label>Modelo:</label>
+        <input
+          type="text"
+          name="modelo"
+          value="{{ maquina.modelo }}"
+          required
+          style="width: 90%; margin-bottom: 10px"
+        />
+        <label>Horas:</label>
+        <input
+          type="number"
+          name="horas"
+          value="{{ maquina.horas }}"
+          required
+          style="width: 90%; margin-bottom: 20px"
+        />
+        <button type="submit" class="btn-cadastrar">Salvar Alterações</button>
+        <a
+          href="/"
+          style="
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+          "
+          >Cancelar</a
+        >
+      </form>
+    </div>
+  </body>
+</html>

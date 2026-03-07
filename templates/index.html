@@ -24,13 +24,35 @@
       <section id="frota">
         <h2>Monitoramento de Colhedoras e Tratores</h2>
         <p>Status do Sistema: <strong>Conectado às Máquinas</strong></p>
+        <div class="form-container">
+          <h3>Cadastrar Nova Máquina</h3>
+          <form action="/cadastrar" method="POST">
+            <input
+              type="text"
+              name="modelo"
+              placeholder="Modelo (ex: S700)"
+              required
+            />
+            <input
+              type="number"
+              name="horas"
+              placeholder="Horas de Uso"
+              required
+            />
+            <button type="submit" class="btn-cadastrar">
+              Adicionar à Frota
+            </button>
+          </form>
+        </div>
+        <hr />
 
         <table>
           <thead>
             <tr>
               <th>Equipamento</th>
-              <th>Horas de Uso</th>
-              <th>Status de Manutenção</th>
+              <th>Horas</th>
+              <th>Status</th>
+              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -44,6 +66,17 @@
                 >
                   {{ m.status }}
                 </span>
+              </td>
+              <td>
+                <a href="/editar/{{ loop.index0 }}" class="btn-editar"
+                  >Editar</a
+                >
+                <a
+                  href="/excluir/{{ loop.index0 }}"
+                  class="btn-excluir"
+                  onclick="return confirm('Tem certeza?');"
+                  >Excluir</a
+                >
               </td>
             </tr>
             {% endfor %}
