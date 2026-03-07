@@ -48,5 +48,20 @@ def editar(indice):
     maquina = frota[indice]
     return render_template('editar.html', maquina=maquina, indice=indice)
 
+@app.route('/relatorio')
+def relatorio():
+    total_maquinas = len(frota)
+    em_alerta = sum(1 for m in frota if m['status'] == "Manutenção Requerida")
+    operacionais = total_maquinas - em_alerta
+    
+    # Cálculo de porcentagem de disponibilidade da frota
+    disponibilidade = (operacionais / total_maquinas * 100) if total_maquinas > 0 else 0
+    
+    return render_template('relatorio.html', 
+                           total=total_maquinas, 
+                           alerta=em_alerta, 
+                           operacionais=operacionais,
+                           disponibilidade=round(disponibilidade, 1))
+
 if __name__ == '__main__':
     app.run(debug=True)

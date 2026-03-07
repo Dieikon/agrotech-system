@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <title>Relatório de Frota - AgroTech</title>
+  </head>
+  <body>
+    <header>
+      <h1>Relatório de Performance de Frota</h1>
+      <nav><a href="/" style="color: #ffde00">Voltar ao Painel</a></nav>
+    </header>
+
+    <main
+      style="
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 40px;
+      "
+    >
+      <div class="card">
+        <h3>Total de Máquinas</h3>
+        <p style="font-size: 24px; font-weight: bold">{{ total }}</p>
+      </div>
+      <div class="card" style="border-left: 5px solid #e74c3c">
+        <h3>Em Alerta</h3>
+        <p style="font-size: 24px; color: #e74c3c">{{ alerta }}</p>
+      </div>
+      <div class="card" style="border-left: 5px solid #367c2b">
+        <h3>Disponibilidade</h3>
+        <p style="font-size: 24px; color: #367c2b">{{ disponibilidade }}%</p>
+      </div>
+    </main>
+  </body>
+</html>
