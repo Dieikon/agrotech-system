@@ -1,20 +1,22 @@
-# AgroTech System - Monitoramento de Frota 🚜
+# 🚜 AgroTech System - Fleet Management
 
-Este projeto é um sistema de gestão de ativos agrícolas desenvolvido para monitorar o status de manutenção preventiva de colhedoras e tratores de alta tecnologia.
+Sistema de monitoramento e Business Intelligence (BI) para frotas agrícolas, focado em máquinas de alta tecnologia John Deere.
+
+## 📺 Demonstração do Sistema
+
+![Demonstração do AgroTech System](img/Agrotech-System.gif)
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Python 3.11**: Lógica de back-end e processamento de dados.
-- **Flask**: Framework web para criação da API e servidor.
-- **HTML5/CSS3**: Estrutura e estilização da interface do usuário.
-- **Jinja2**: Renderização dinâmica de dados da frota.
+- **Python 3.9** (Backend)
+- **Flask** (Framework Web)
+- **SQLite** (Banco de Dados Relacional - Persistência Offline)
+- **JavaScript** (Filtros de busca em tempo real)
+- **HTML5/CSS3** (Interface Responsiva)
 
-## 🎯 Objetivo do Projeto
+## 🚀 Funcionalidades Principais
 
-Unir minha experiência como **Operadora Mantenedora de máquinas John Deere** com o desenvolvimento de software para criar soluções que reduzam o tempo de máquina parada (_downtime_) através de alertas visuais de manutenção.
-
-## 🚀 Como executar
-
-1. Ative o ambiente virtual: `source venv/Scripts/activate`
-2. Instale as dependências: `pip install flask`
-3. Rode a aplicação: `python app.py`
+- **Gerenciamento de Frota**: CRUD completo (Cadastrar, Ler, Editar e Excluir) de equipamentos.
+- **Inteligência de Manutenção**: Cálculo automático de status (Operacional/Alerta) baseado em horas de uso.
+- **Painel de BI**: Relatórios em tempo real de disponibilidade de frota e métricas de performance.
+- **Busca Otimizada**: Filtro dinâmico por modelo ou número da frota para agilidade operacional.
