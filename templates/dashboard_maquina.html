@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Telemetria - {{ maquina['modelo'] }}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Base do Sistema */
+      body {
+        background-color: #0f1115; /* Preto mais profundo e sofisticado */
+        color: #e5e7eb;
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Cabeçalho */
+      .text-accent {
+        color: #f59e0b;
+      } /* Amarelo John Deere moderno */
+      .btn-voltar {
+        background-color: #1f2229;
+        color: #d1d5db;
+        border: 1px solid #374151;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+      .btn-voltar:hover {
+        background-color: #374151;
+        color: #fff;
+      }
+
+      /* Cartões de Informação (Cards) */
+      .card-dark {
+        background-color: #1f2229;
+        border: 1px solid #2d313a;
+        border-radius: 16px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        padding: 1.5rem;
+      }
+
+      /* Padronização Absoluta dos Títulos */
+      .card-title-custom {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #9ca3af;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+      }
+
+      /* Valores e Números Centrais */
+      .status-text {
+        font-size: 2.2rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
+      .metric-value {
+        font-size: 4rem;
+        font-weight: 700;
+        color: #ffffff;
+        line-height: 1;
+        letter-spacing: -1px;
+      }
+      .metric-unit {
+        font-size: 1.2rem;
+        color: #6b7280;
+        font-weight: 500;
+        margin-left: 4px;
+      }
+
+      /* Bloco de Sensores (Saúde do Motor) */
+      .sensor-row {
+        margin-bottom: 1.5rem;
+      }
+      .sensor-row:last-child {
+        margin-bottom: 0;
+      }
+
+      .sensor-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 8px;
+      }
+      .sensor-label {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #d1d5db;
+      }
+      .sensor-value {
+        font-size: 1.05rem;
+        font-weight: 600;
+      }
+
+      /* Barras de Progresso Refinadas */
+      .progress-custom {
+        height: 6px;
+        background-color: #374151;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .progress-bar {
+        border-radius: 999px;
+      }
+      .bg-info-custom {
+        background-color: #0ea5e9;
+      } /* Azul mais vibrante */
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+          <h2 class="fw-bold mb-0 text-white">Painel de Telemetria</h2>
+          <div class="text-accent fs-5 mt-1 fw-semibold">
+            {{ maquina['modelo'] }}
+            <span style="color: #6b7280; font-weight: 400; font-size: 1.1rem"
+              >(Frota: {{ maquina['numero_frota'] }})</span
+            >
+          </div>
+        </div>
+        <a href="/" class="btn btn-voltar px-4 py-2"
+          ><i class="fa-solid fa-arrow-left me-2"></i> Voltar</a
+        >
+      </div>
+
+      {% if telemetria %}
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card card-dark h-100 d-flex flex-column">
+            <div class="card-title-custom">
+              <i class="fa-solid fa-satellite-dish"></i> Status da Operação
+            </div>
+
+            <div
+              class="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center"
+            >
+              <div
+                class="status-text {% if telemetria['status_operacao'] == 'Colhendo' %}text-success{% else %}text-warning{% endif %}"
+              >
+                {{ telemetria['status_operacao'] }}
+              </div>
+            </div>
+
+            <div
+              class="text-center mt-3"
+              style="color: #6b7280; font-size: 0.8rem"
+            >
+              <i class="fa-regular fa-clock me-1"></i> Sincronizado: {{
+              telemetria['data_leitura'] }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card card-dark h-100 d-flex flex-column">
+            <div class="card-title-custom">
+              <i class="fa-solid fa-wheat-awn"></i> Produtividade
+            </div>
+
+            <div
+              class="flex-grow-1 d-flex justify-content-center align-items-center"
+            >
+              <div class="d-flex align-items-baseline">
+                <span class="metric-value"
+                  >{{ telemetria['toneladas_hora'] }}</span
+                >
+                <span class="metric-unit">Ton/h</span>
+              </div>
+            </div>
+
+            <div
+              class="text-center mt-3"
+              style="font-size: 0.8rem; visibility: hidden"
+            >
+              Espaçador Fantasma
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card card-dark h-100">
+            <div class="card-title-custom mb-4">
+              <i class="fa-solid fa-gauge-high"></i> Sensores Vitais
+            </div>
+
+            <div class="sensor-row">
+              <div class="sensor-header">
+                <span class="sensor-label">Temperatura do Motor</span>
+                <span
+                  class="sensor-value {% if telemetria['temp_motor'] > 100 %}text-danger{% else %}text-white{% endif %}"
+                >
+                  {{ telemetria['temp_motor'] }} °C
+                </span>
+              </div>
+              <div class="progress progress-custom">
+                <div
+                  class="progress-bar {% if telemetria['temp_motor'] > 100 %}bg-danger{% else %}bg-success{% endif %}"
+                  style="width: {{ (telemetria['temp_motor'] / 120) * 100 }}%"
+                ></div>
+              </div>
+            </div>
+
+            <div class="sensor-row">
+              <div class="sensor-header">
+                <span class="sensor-label">Nível Óleo do Motor</span>
+                <span class="sensor-value text-white"
+                  >{{ telemetria['nivel_oleo_motor'] }} %</span
+                >
+              </div>
+              <div class="progress progress-custom">
+                <div
+                  class="progress-bar bg-info-custom"
+                  style="width: {{ telemetria['nivel_oleo_motor'] }}%"
+                ></div>
+              </div>
+            </div>
+
+            <div class="sensor-row">
+              <div class="sensor-header">
+                <span class="sensor-label">Nível Óleo Diesel</span>
+                <span class="sensor-value text-white"
+                  >{{ telemetria['oleo_diesel'] }} %</span
+                >
+              </div>
+              <div class="progress progress-custom">
+                <div
+                  class="progress-bar bg-warning"
+                  style="width: {{ telemetria['oleo_diesel'] }}%"
+                ></div>
+              </div>
+            </div>
+
+            <div class="sensor-row">
+              <div class="sensor-header">
+                <span class="sensor-label">Pressão Hidráulica</span>
+                <span class="sensor-value text-white"
+                  >{{ telemetria['nivel_oleo_hidraulico'] }} %</span
+                >
+              </div>
+              <div class="progress progress-custom">
+                <div
+                  class="progress-bar bg-info-custom"
+                  style="width: {{ telemetria['nivel_oleo_hidraulico'] }}%"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div
+        class="alert alert-warning text-center mt-5"
+        role="alert"
+        style="background-color: #2d313a; border-color: #374151; color: #f59e0b"
+      >
+        <i class="fa-solid fa-triangle-exclamation me-2"></i> Aguardando conexão
+        de telemetria com o maquinário.
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
