@@ -1,0 +1,14 @@
+# Ignora o seu ambiente virtual
+venv/
+env/
+
+# Ignora os arquivos de cache do Python
+__pycache__/
+*.pyc
+
+# Ignora o arquivo onde você vai guardar as senhas do sistema no futuro
+.env
+
+# Ignora lixos do sistema operacional (Mac/Windows)
+.DS_Store
+Thumbs.db
